@@ -1,0 +1,35 @@
+{
+  "name": "cavememedesk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Autonomous Solana memecoin trading desk — 6-agent hard-handoff pipeline, paper-first",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "start:headless": "tsx src/index.ts --headless",
+    "recap": "tsx src/recap/morningReport.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "ink": "^5.2.1",
+    "react": "^18.3.1",
+    "ws": "^8.18.3",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^18.3.27",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "utf-8-validate@5.0.10": true,
+    "utf-8-validate@6.0.6": true
+  }
+}

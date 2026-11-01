@@ -1,0 +1,25 @@
+# Private — never commit
+AGENTS.md
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies / build
+node_modules/
+dist/
+build/
+
+# Runtime data
+data/
+*.db
+*.db-journal
+*.log
+logs/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

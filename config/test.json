@@ -1,0 +1,72 @@
+{
+  "mode": "paper",
+  "startingBalanceSol": 1.0,
+  "solUsdFallback": 150,
+  "liveTradingEnabled": false,
+  "pipeline": {
+    "queueMax": 50,
+    "concurrency": 3,
+    "minTokenAgeMs": 60000,
+    "dedupeTtlMs": 3600000
+  },
+  "filter": {
+    "minLiquidityUsd": 1000,
+    "minHourlyVolumeUsd": 1000,
+    "maxTop10Pct": 0.9,
+    "lpLockMinPct": 0.5,
+    "devRugSampleSize": 0,
+    "devHistoryPolicy": "best-effort-allow"
+  },
+  "analyst": {
+    "minScore": 0.3,
+    "weights": {
+      "volumeMomentum": 0.25,
+      "buySellRatio": 0.2,
+      "holderDistribution": 0.15,
+      "liquidityDepth": 0.15,
+      "devHistory": 0.1,
+      "ageSweetSpot": 0.1,
+      "metadataHeuristics": 0.05
+    }
+  },
+  "executor": {
+    "maxPositionPct": 0.08,
+    "feePct": 0.005,
+    "slippageMinPct": 0.01,
+    "slippageMaxPct": 0.03
+  },
+  "risk": {
+    "hardStopLossPct": 0.06,
+    "trailActivationPct": 0.12,
+    "trailDistancePct": 0.03,
+    "timeoutExitHours": 0.03,
+    "consecutiveLossesToCooldown": 3,
+    "cooldownMinutes": 60,
+    "dailyKillSwitchPct": 0.05,
+    "tickMs": 3000
+  },
+  "scout": {
+    "raydiumEnabled": false,
+    "raydiumAmmV4Program": "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8",
+    "raydiumBackoffMs": 30000
+  },
+  "rpc": {
+    "url": "https://api.mainnet-beta.solana.com"
+  },
+  "rateLimits": {
+    "dexscreenerMinIntervalMs": 400,
+    "geckoterminalMinIntervalMs": 6500,
+    "rugcheckMinIntervalMs": 1200,
+    "goplusMinIntervalMs": 1000,
+    "rpcMinIntervalMs": 350
+  },
+  "ui": {
+    "refreshMs": 1000,
+    "equitySnapshotMs": 10000,
+    "feedSize": 200
+  },
+  "recap": {
+    "auto": false,
+    "autoHourLocal": 8
+  }
+}
