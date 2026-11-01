@@ -11,7 +11,11 @@
     "start": "tsx src/index.ts",
     "start:headless": "tsx src/index.ts --headless",
     "recap": "tsx src/recap/morningReport.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:stop": "pm2 stop cavememedesk",
+    "pm2:restart": "pm2 restart cavememedesk",
+    "pm2:logs": "pm2 logs cavememedesk"
   },
   "dependencies": {
     "@solana/web3.js": "^1.98.4",

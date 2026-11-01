@@ -75,6 +75,14 @@ const configSchema = z.object({
     auto: z.boolean(),
     autoHourLocal: z.number().int().min(0).max(23),
   }),
+  telegram: z.object({
+    enabled: z.boolean(),
+    sendTokenFinds: z.boolean(),
+    sendTrades: z.boolean(),
+    sendAlerts: z.boolean(),
+    sendRecap: z.boolean(),
+    sendRejections: z.boolean(),
+  }),
 });
 
 export type DeskConfig = z.infer<typeof configSchema>;

@@ -68,5 +68,13 @@
   "recap": {
     "auto": false,
     "autoHourLocal": 8
+  },
+  "telegram": {
+    "enabled": false,
+    "sendTokenFinds": true,
+    "sendTrades": true,
+    "sendAlerts": true,
+    "sendRecap": true,
+    "sendRejections": false
   }
 }

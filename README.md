@@ -57,7 +57,42 @@ Ink dashboard (~1s refresh): mode badge (PAPER/kill-switch/paused), equity + cas
 
 ## Morning recap
 
-Auto at 08:00 local (and on shutdown, and via `npm run recap`): win rate, net PnL, profit factor, max drawdown, best/worst trades with reasons, decision funnel, top rejection reasons, ASCII equity curve.
+Auto at 08:00 local (and on shutdown, and via `npm run recap` or `/recap`): win rate, net PnL, profit factor, max drawdown, best/worst trades with reasons, decision funnel, top rejection reasons, ASCII equity curve.
+
+## Telegram alerts
+
+The desk pushes to Telegram via `@cavegrubot` (zero new deps — plain Bot API over `fetch`):
+
+| What | When |
+|---|---|
+| ✅ FILTER pass | token cleared every security check |
+| 🟢/🔴 TRADE open/close | EXECUTOR/RISK actions with size, price, PnL |
+| ⚠️/🚨 alerts | kill switch, anti-revenge cooldown, WS down, shutdown |
+| 🌅 daily recap | at `recap.autoHourLocal`, plus shutdown recap |
+| 📊 `/status` `/recap` `/pause` `/resume` | commands |
+
+Setup: `TELEGRAM_BOT_TOKEN` (+ optional `TELEGRAM_CHAT_ID`) in `.env`; message the bot `/start` once to link a chat if the id isn't prefilled. Per-category toggles in `config/default.json` → `telegram` (`sendTokenFinds`, `sendTrades`, `sendAlerts`, `sendRecap`, `sendRejections` — rejects off by default, they're spammy). Outbound is rate-limited (~50 msg/min) and HTML-escaped; a full queue or Telegram outage is logged and never crashes the desk. Linked chat ids persist in `data/telegram.json`; commands are admin-only once linked.
+
+## Deploy with PM2 (VPS)
+
+```bash
+# Node 24 (node:sqlite) + pm2
+curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash - && sudo apt install -y nodejs
+sudo npm i -g pm2
+
+git clone git@github.com:EMMANUEL-SUNMBOLA/CaveMemeDesk.git && cd CaveMemeDesk
+npm install
+cp .env.example .env && nano .env   # RPC_URL (Helius free), TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+
+npm run pm2:start                   # pm2 start ecosystem.config.cjs
+pm2 save && pm2 startup             # follow the printed systemd command (sudo)
+
+pm2 logs cavememedesk               # live feed
+pm2 restart cavememedesk            # graceful — writes + sends shutdown recap
+npm run recap                       # morning report on the VPS
+```
+
+`ecosystem.config.cjs`: single instance (never cluster — one desk, one SQLite writer), autorestart with 20-cap, `kill_timeout: 10s` so graceful shutdown recap + Telegram flush complete, memory cap 400M, logs in `data/pm2-*.log`. Set `TZ` in the ecosystem env if your VPS runs UTC and you want the 08:00 recap on local time.
 
 ## Data sources (free tiers)
 
