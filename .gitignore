@@ -12,7 +12,7 @@ dist/
 build/
 
 # Runtime data
-data/
+/data/
 *.db
 *.db-journal
 *.log

@@ -8,6 +8,7 @@ module.exports = {
       args: "src/index.ts --headless",
       cwd: __dirname,
       instances: 1, // never cluster — one desk, one SQLite writer
+      exec_mode: "fork", // explicit: some pm2 versions default instances:1 to cluster, which breaks tsx log capture
       autorestart: true,
       max_restarts: 20,
       restart_delay: 5000,
